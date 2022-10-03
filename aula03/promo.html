@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <title>Sale</title>
+  </head>
+  <body>
+    <div class="nome-loja">
+      <h1>Maísa's Clothing Store</h1>
+      <a href="./atendimento.html"
+        ><button id="botao-atendimento">Atendimento</button></a
+      >
+      <a href="./index.html"><button id="botao-home">Home</button></a>
+      <a href="./carrinho.html"
+        ><button id="botao-carrinho">Carrinho</button></a
+      >
+    </div>
+    <div class="imagem-promocao">
+      <a><img src="./imagens/promo3.png" /></a>
+    </div>
+    <div class="filter-wrapper">
+      <input placeholder="pesquisar" id="input-pesquisar" />
+      <select id="filter-type-select" value="marca">
+        <option value="marca">marca</option>
+        <option value="modelo">modelo</option>
+        <option value="modelo">cor</option>
+        <option value="modelo">tamanho</option>
+      </select>
+      <button id="search-button">buscar</button>
+    </div>
+    <div id="rooot"></div>
+    <script src="./scripts/index.js" type="module"></script>
+  </body>
+</html>
