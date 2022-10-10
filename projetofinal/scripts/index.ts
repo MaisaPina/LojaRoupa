@@ -9,6 +9,8 @@ type Receita = {
 }
 
 const elemento = document.querySelector(".listar-receitas");
+const botaoPesquisar = document.querySelector("#botao-pesquisar");
+const pesquisaInput = document.querySelector("#input-pesquisar");
 
 //O método split() divide uma String em uma lista ordenada de substrings, coloca essas substrings em um array e retorna o array
 function arrayFiltro(arrayIngredientes: string){
@@ -37,7 +39,7 @@ async function getReceitas(): Promise<Receita[]> {
 //   console.log(filtro);
 // }
 
-async function filtroIngredientes(ingrediente: string){
+async function filtroIngredientes(event: MouseEvent, ingrediente: string){
   const ingredienteFiltrado = await getReceitas();
   const filtro = ingredienteFiltrado.filter(dados => {
     const variosIngredientes = arrayFiltro(ingrediente).length > 1;
@@ -64,6 +66,7 @@ async function filtroIngredientes(ingrediente: string){
       if(acumulador.length === procuraValor.length)return true;
     }
   });
+  cardsReceita(filtro);
   console.log(filtro);
 }
 
@@ -82,4 +85,16 @@ function cardsReceita(itens: Receita[]){
   }
 }
 
-filtroIngredientes('oranges, chocolate');
+async function pesquisa() {
+  const retorno = await getReceitas();
+  const pesquisarIngrediente = (pesquisaInput as HTMLInputElement).value;
+  const valorIngrediente= retorno.filter((receita) => receita.Ingredients.includes(pesquisarIngrediente));
+  cardsReceita(valorIngrediente);
+}
+
+function eventListenerHandle() {
+  (botaoPesquisar as HTMLButtonElement)?.addEventListener("click", pesquisa);
+}
+
+// filtroIngredientes("chocolate, dark");
+eventListenerHandle();

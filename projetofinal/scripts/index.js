@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const elemento = document.querySelector(".listar-receitas");
+const botaoPesquisar = document.querySelector("#botao-pesquisar");
+const pesquisaInput = document.querySelector("#input-pesquisar");
 //O método split() divide uma String em uma lista ordenada de substrings, coloca essas substrings em um array e retorna o array
 function arrayFiltro(arrayIngredientes) {
     return arrayIngredientes.split(","); //vírgula é o parâmetro de divisão do array
@@ -35,7 +37,7 @@ function getReceitas() {
 //   // cardsReceita(filtro);
 //   console.log(filtro);
 // }
-function filtroIngredientes(ingrediente) {
+function filtroIngredientes(event, ingrediente) {
     return __awaiter(this, void 0, void 0, function* () {
         const ingredienteFiltrado = yield getReceitas();
         const filtro = ingredienteFiltrado.filter(dados => {
@@ -63,6 +65,7 @@ function filtroIngredientes(ingrediente) {
                     return true;
             }
         });
+        cardsReceita(filtro);
         console.log(filtro);
     });
 }
@@ -82,4 +85,17 @@ function cardsReceita(itens) {
         });
     }
 }
-filtroIngredientes('oranges, chocolate');
+function pesquisa() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const retorno = yield getReceitas();
+        const pesquisarIngrediente = pesquisaInput.value;
+        const valorIngrediente = retorno.filter((receita) => receita.Ingredients.includes(pesquisarIngrediente));
+        cardsReceita(valorIngrediente);
+    });
+}
+function eventListenerHandle() {
+    var _a;
+    (_a = botaoPesquisar) === null || _a === void 0 ? void 0 : _a.addEventListener("click", pesquisa);
+}
+// filtroIngredientes("chocolate, dark");
+eventListenerHandle();

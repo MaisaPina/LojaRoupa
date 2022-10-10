@@ -59,35 +59,46 @@ body {
   background: white;
   color: black;
   border-radius: 8px;
-  width: 160px;
+  width: 280px;
   height: 24px;
+}
+
+.pesquisa {
+  border: none;
+  background: orangered;
+  color: black;
+  border-radius: 8px;
+  width: 130px;
+  height: 30px;
 }
 
 .listar-receitas{
   display: grid;
   flex-direction: row;
   padding: 0 30px;
-  background: green;
+  background: #fffdd0;
   width: 96%;
   height: 100%;
   grid-template-columns: repeat(auto-fill, 230px);
   padding-top: 80px;
-  padding-bottom: 80px
+  padding-bottom: 80px;
 }
 
 .listar-itens{
   display: grid;
   /* padding: 0 12px; */
-  background: pink;
+  background: write;
   width: 230px;
-  height: 400px;
+  /* height: 400px; */
+  height: 200px;
   padding: 50px;
 }
 
 .imagem{
   display: flex;
   flex-direction: column;
-  background: purple;
-  width: 230px;
+  background: write;
+  /* width: 230px; */
+  width: 200px;
   height: 200px;
 }
