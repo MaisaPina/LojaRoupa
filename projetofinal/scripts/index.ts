@@ -10,6 +10,7 @@ type Receita = {
 
 const elemento = document.querySelector(".listar-receitas");
 const botaoPesquisar = document.querySelector("#botao-pesquisar");
+// const botaoHome = document.querySelector("#botao-home");
 const pesquisaInput = document.querySelector("#input-pesquisar");
 
 //O método split() divide uma String em uma lista ordenada de substrings, coloca essas substrings em um array e retorna o array
@@ -24,34 +25,20 @@ async function getReceitas(): Promise<Receita[]> {
   return data;
 }
 
-// O método toLowerCase() converte uma string em letras minúsculas sem alterar a string original.
-// async function filtroIngredientes(ingrediente: string){
-//   const ingredienteFiltrado = await getReceitas();
-//   const filtro = ingredienteFiltrado.filter(dados => {
-//     const ingredientes = dados.Ingredients.filter(ingredientes => {
-//       return ingredientes.toLowerCase().includes(ingrediente.toLowerCase()); 
-//     });
-//     if(ingredientes.length){
-//       return dados;
-//     }
-//   })
-//   // cardsReceita(filtro);
-//   console.log(filtro);
-// }
-
-async function filtroIngredientes(event: MouseEvent, ingrediente: string){
+async function filtroIngredientes(event: MouseEvent){
   const ingredienteFiltrado = await getReceitas();
+  const pesquisarIngrediente = (pesquisaInput as HTMLInputElement).value;
   const filtro = ingredienteFiltrado.filter(dados => {
-    const variosIngredientes = arrayFiltro(ingrediente).length > 1;
+    const variosIngredientes = arrayFiltro(pesquisarIngrediente).length > 1;
     if(!variosIngredientes){
       const incluiIngredientes = dados.Ingredients.filter((ingredientesFiltrados) => {
-        return ingredientesFiltrados.toLowerCase().includes(ingrediente.toLowerCase()); 
+        return ingredientesFiltrados.toLowerCase().includes(pesquisarIngrediente.toLowerCase()); 
       });
       return incluiIngredientes.length ? dados :false;
     }
     if(variosIngredientes){
       let acumulador: string[] = [];
-      const procuraValor = arrayFiltro(ingrediente);
+      const procuraValor = arrayFiltro(pesquisarIngrediente);
 
       for(let i = 0; i < procuraValor.length; i++){
         for(let y = 0; y < dados.Ingredients.length; y++){
@@ -78,23 +65,22 @@ function cardsReceita(itens: Receita[]){
       if(i>14){return false}
       elemento.innerHTML +=
       `<div class="listar-itens">
-        <div class="imagem"><img src="${item.urlImage}" alt="food-chef" <h5><a href="">${item.Name}</a></h5></div>
+        <div class="imagem"><img src="${item.urlImage}" alt="food-chef" <h5><a href="./atendimento.html">${item.Name}</a></h5></div>
+        <br>
+        <div>Autor: ${item.Author} </div>
       </div>`
       i++;
     });
   }
 }
 
-async function pesquisa() {
-  const retorno = await getReceitas();
-  const pesquisarIngrediente = (pesquisaInput as HTMLInputElement).value;
-  const valorIngrediente= retorno.filter((receita) => receita.Ingredients.includes(pesquisarIngrediente));
-  cardsReceita(valorIngrediente);
-}
-
 function eventListenerHandle() {
-  (botaoPesquisar as HTMLButtonElement)?.addEventListener("click", pesquisa);
+  (botaoPesquisar as HTMLButtonElement)?.addEventListener("click", filtroIngredientes);
 }
 
-// filtroIngredientes("chocolate, dark");
+// function home() {
+//   (botaoHome as HTMLButtonElement)?.addEventListener("click", filtroIngredientes);
+// }
+
+// home();
 eventListenerHandle();
